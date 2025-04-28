@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { cores } from "../../styles";
+import { colors } from "../../styles";
 
 export const Container = styled.footer`
   height: 18.75rem;
-  background-color: ${cores.flowerBed};
+  background-color: ${colors.flowerBed};
   padding: 2.5rem 0;
   font-size: 0.625rem;
 

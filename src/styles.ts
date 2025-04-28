@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-export const cores = {
+export const colors = {
   white: "#FFFFFF",
   sugarMilk: "#FFF8F2",
   flowerBed: "#FFEBD9",
@@ -14,16 +14,17 @@ padding: 0;
 box-sizing: border-box;
 font-family: 'Roboto', sans-serif;
 list-style: none;
+text-decoration: none;
 
 
 body {
-background-color: ${cores.sugarMilk};
-color: ${cores.pureHearted};
-padding-top: 2.5rem;
+background-color: ${colors.sugarMilk};
+color: ${colors.pureHearted};
+
 }
 
 .container {
- display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 1024px;
