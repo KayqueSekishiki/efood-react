@@ -23,7 +23,10 @@ padding-top: 2.5rem;
 }
 
 .container {
+ display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 1024px;
   width: 100%;
-  margin: 0 auto;}
+  margin: 0 auto;
 `;
