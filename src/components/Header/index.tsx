@@ -4,19 +4,31 @@ import logo from "../../assets/logo.svg";
 
 import { Container, HeaderBar, Title } from "./styles";
 
-const Header = () => (
+type Props = {
+  headerFor: "home" | "perfil";
+};
+
+const Header = ({ headerFor }: Props) => (
   <Container>
     <div className="container">
-      <HeaderBar>
-        <p>Restaurantes</p>
-        <Link to={"/"}>
-          <img src={logo} alt="Efood" />
-        </Link>
-        <p>
-          <span>0</span> - produto(s) no carrinho
-        </p>
-      </HeaderBar>
-      <Title>Viva experiências gastronômicas no conforto da sua casa</Title>
+      {headerFor === "home" ? (
+        <>
+          <Link to={"/"}>
+            <img src={logo} alt="Efood" />
+          </Link>
+          <Title>Viva experiências gastronômicas no conforto da sua casa</Title>
+        </>
+      ) : (
+        <HeaderBar>
+          <p>Restaurantes</p>
+          <Link to={"/"}>
+            <img src={logo} alt="Efood" />
+          </Link>
+          <p>
+            <span>0</span> - produto(s) no carrinho
+          </p>
+        </HeaderBar>
+      )}
     </div>
   </Container>
 );
