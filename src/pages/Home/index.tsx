@@ -1,6 +1,8 @@
+import RestaurantList from "../../components/RestaurantList";
+
 const Home = () => (
   <>
-    <h1>Home</h1>
+    <RestaurantList />
   </>
 );
 

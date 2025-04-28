@@ -16,7 +16,6 @@ const Header = () => (
           <span>0</span> - produto(s) no carrinho
         </p>
       </HeaderBar>
-
       <Title>Viva experiências gastronômicas no conforto da sua casa</Title>
     </div>
   </Container>
