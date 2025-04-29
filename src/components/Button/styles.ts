@@ -20,4 +20,10 @@ export const Button = styled.button<Props>`
     `
       max-width: 10rem;
   `}
+
+  ${(props) =>
+    props.buttonFor === "recipe" &&
+    `
+      width: 100%;
+  `}
 `;
