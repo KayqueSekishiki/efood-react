@@ -1,9 +1,10 @@
 import Header from "../../components/Header";
+import Hero from "../../components/Hero";
 
 const Perfil = () => (
   <>
     <Header headerFor="perfil" />
-    <h1>Perfil do Restaurante</h1>
+    <Hero />
   </>
 );
 

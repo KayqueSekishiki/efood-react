@@ -1,6 +1,6 @@
 import * as B from "./styles";
 
-export type Props = {
+type Props = {
   text: string;
   buttonFor: "restaurant" | "recipe" | "modal" | "formFinish";
 };

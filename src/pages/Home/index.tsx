@@ -5,7 +5,7 @@ import hiokiSushi from "../../assets/restaurants/hioki-sushi.svg";
 import laDolceVita from "../../assets/restaurants/la-dolce-vita-trattoria.svg";
 import Restaurant from "../../models/Restaurant";
 
-const restaurantList: Restaurant[] = [
+export const restaurantList: Restaurant[] = [
   {
     id: 1,
     image: hiokiSushi,
