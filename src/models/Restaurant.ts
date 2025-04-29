@@ -1,6 +1,7 @@
 class Restaurant {
   id: number;
   image: string;
+  highlightDay: boolean;
   tags: string[];
   name: string;
   rate: number;
@@ -10,6 +11,7 @@ class Restaurant {
   constructor(
     id: number,
     image: string,
+    highlightDay: boolean,
     tags: string[],
     name: string,
     rate: number,
@@ -18,6 +20,7 @@ class Restaurant {
   ) {
     this.id = id;
     this.image = image;
+    this.highlightDay = highlightDay;
     this.tags = tags;
     this.name = name;
     this.rate = rate;

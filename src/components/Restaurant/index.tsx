@@ -11,30 +11,42 @@ import {
 } from "./styles";
 
 import star from "../../assets/star.svg";
-import hiokishushi from "../../assets/restaurants/hioki-sushi.svg";
 
-const Restaurant = () => (
+type Props = {
+  image: string;
+  highlightDay: boolean;
+  tags: string[];
+  name: string;
+  rate: number;
+  description: string;
+};
+
+const Restaurant = ({
+  image,
+  highlightDay,
+  tags,
+  name,
+  rate,
+  description,
+}: Props) => (
   <Container>
-    <ImageContainer backgroundImage={hiokishushi}>
+    <ImageContainer backgroundImage={image}>
       <Tags>
-        <Tag>Destaque do Dia</Tag>
-        <Tag>Japonesa</Tag>
+        {highlightDay && <Tag>Destaque do Dia</Tag>}
+        {tags.map((tag) => (
+          <Tag>{tag}</Tag>
+        ))}
       </Tags>
     </ImageContainer>
     <InfosContainer>
       <NameContainer>
-        <h3>Hioki Sushi</h3>
+        <h3>{name}</h3>
         <RateContainer>
-          <span>4.9</span>
+          <span>{rate}</span>
           <img src={star} alt="classificação" />
         </RateContainer>
       </NameContainer>
-      <Description>
-        Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis
-        frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega
-        rápida, embalagens cuidadosas e qualidade garantid. Experimente o Japão
-        sem sair do lar com nosso delivery!
-      </Description>
+      <Description>{description}</Description>
       <Button>Saiba mais</Button>
     </InfosContainer>
   </Container>
