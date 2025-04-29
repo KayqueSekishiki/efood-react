@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import RestaurantList from "../../components/RestaurantList";
+import List from "../../components/List";
 
 import hiokiSushi from "../../assets/restaurants/hioki-sushi.svg";
 import laDolceVita from "../../assets/restaurants/la-dolce-vita-trattoria.svg";
@@ -172,7 +172,7 @@ export const restaurantList: Restaurant[] = [
 const Home = () => (
   <>
     <Header headerFor="home" />
-    <RestaurantList restaurant={restaurantList} />
+    <List listFor="restaurant" restaurants={restaurantList} />
   </>
 );
 

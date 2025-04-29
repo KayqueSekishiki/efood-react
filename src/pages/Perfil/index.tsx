@@ -1,13 +1,13 @@
 import Header from "../../components/Header";
 import Hero from "../../components/Hero";
-import RecipesList from "../../components/RecipesList";
+import List from "../../components/List";
 
 const Perfil = () => (
   <>
     <Header headerFor="perfil" />
     <Hero />
 
-    <RecipesList />
+    <List listFor="recipe" />
   </>
 );
 
