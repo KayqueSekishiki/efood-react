@@ -1,3 +1,5 @@
+import Recipe from "./Recipe";
+
 class Restaurant {
   id: number;
   image: string;
@@ -6,7 +8,7 @@ class Restaurant {
   name: string;
   rate: number;
   description: string;
-  recipes: object[];
+  recipes: Recipe[];
 
   constructor(
     id: number,
@@ -16,7 +18,7 @@ class Restaurant {
     name: string,
     rate: number,
     description: string,
-    recipes: object[]
+    recipes: Recipe[]
   ) {
     this.id = id;
     this.image = image;
