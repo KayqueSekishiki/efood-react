@@ -7,10 +7,11 @@ import {
   NameContainer,
   RateContainer,
   Description,
-  Button,
 } from "./styles";
 
 import star from "../../assets/star.svg";
+import Button from "../Button";
+import { Link } from "react-router-dom";
 
 type Props = {
   image: string;
@@ -47,7 +48,9 @@ const Restaurant = ({
         </RateContainer>
       </NameContainer>
       <Description>{description}</Description>
-      <Button>Saiba mais</Button>
+      <Link to={"/perfil"}>
+        <Button buttonFor="restaurant" text="Saiba mais" />
+      </Link>
     </InfosContainer>
   </Container>
 );

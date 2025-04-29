@@ -59,14 +59,3 @@ export const Description = styled.p`
   font-weight: 400;
   line-height: 1.375rem;
 `;
-
-export const Button = styled.button`
-  padding: 0.25rem 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: ${colors.flowerBed};
-  background-color: ${colors.pureHearted};
-  border: none;
-
-  max-width: 10rem;
-`;
