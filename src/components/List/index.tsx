@@ -1,10 +1,8 @@
 import Restaurant from "../../models/Restaurant";
 import Recipe from "../../models/Recipe";
-import RestaurantComponent from "../Restaurant";
 import { Container } from "./styles";
-
-import RecipeCard from "../Recipe";
 import { restaurantList } from "../../pages/Home";
+import Card from "../Card";
 
 type Props = {
   listFor: "restaurant" | "recipe";
@@ -18,23 +16,23 @@ const List = ({
   recipes = restaurantList[1].recipes as Recipe[],
 }: Props) => (
   <div className="container">
-    <Container listFor={listFor}>
+    <Container list={listFor}>
       {listFor === "restaurant" &&
-        (restaurants ?? []).map((r) => (
-          <RestaurantComponent
-            key={r.id}
-            image={r.image}
-            highlightDay={r.highlightDay}
-            tags={r.tags}
-            name={r.name}
-            rate={r.rate}
-            description={r.description}
+        (restaurants ?? []).map((restaurant) => (
+          <Card
+            key={restaurant.id}
+            image={restaurant.image}
+            highlightDay={restaurant.highlightDay}
+            tags={restaurant.tags}
+            name={restaurant.name}
+            rate={restaurant.rate}
+            description={restaurant.description}
           />
         ))}
 
       {listFor === "recipe" &&
         (recipes ?? []).map((recipe) => (
-          <RecipeCard
+          <Card
             key={recipe.id}
             image={recipe.image}
             name={recipe.name}
