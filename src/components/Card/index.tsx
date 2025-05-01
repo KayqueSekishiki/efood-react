@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
 
-import Restaurant from "../../models/Restaurant";
-import Recipe from "../../models/Recipe";
-
 import {
   Container,
   Tags,
@@ -16,66 +13,82 @@ import {
 
 import star from "../../assets/star.svg";
 import Button from "../Button";
-import { restaurantList } from "../../pages/Home";
+import Recipe from "../../models/Recipe";
 
 type Props = {
   listFor: "restaurant" | "recipe";
-  restaurants?: Restaurant[];
+  id: number;
+  image: string;
+  highlightDay?: boolean;
+  tags?: string[];
+  name: string;
+  rate?: number;
+  description: string;
   recipes?: Recipe[];
 };
 
 const Card = ({
   listFor,
-  restaurants,
-  recipes = restaurantList[1].recipes as Recipe[],
+  id,
+  image,
+  highlightDay,
+  tags,
+  name,
+  rate,
+  description,
+  recipes,
 }: Props) => {
-  listFor === "restaurant" &&
-    restaurants?.map((restaurant) => (
-      <Container key={restaurant.id} listFor={listFor}>
-        <ImageContainer listFor="restaurant" backgroundImage={restaurant.image}>
+  if (listFor === "restaurant") {
+    return (
+      <Container key={id} listFor={listFor}>
+        <ImageContainer listFor="restaurant" backgroundImage={image}>
           <Tags>
-            {restaurant.highlightDay && <Tag>Destaque do Dia</Tag>}
-            {restaurant.tags.map((tag) => (
+            {highlightDay && <Tag>Destaque do Dia</Tag>}
+            {tags?.map((tag) => (
               <Tag key={tag}>{tag}</Tag>
             ))}
           </Tags>
         </ImageContainer>
         <InfosContainer listFor="restaurant">
           <NameContainer>
-            <h3>{restaurant.name}</h3>
+            <h3>{name}</h3>
             <RateContainer>
-              <span>{restaurant.rate}</span>
+              <span>{rate}</span>
               <img src={star} alt="classificação" />
             </RateContainer>
           </NameContainer>
-          <Description listFor="restaurant">
-            {restaurant.description}
-          </Description>
+          <Description listFor="restaurant">{description}</Description>
           <Link to={"/perfil"}>
             <Button buttonFor="restaurant" text="Saiba mais" />
           </Link>
         </InfosContainer>
       </Container>
-    ));
+    );
+  }
 
-  listFor === "recipe" &&
-    recipes.map((recipe) => (
-      <Container listFor="recipe" key={recipe.id}>
-        <ImageContainer
-          listFor="recipe"
-          backgroundImage={recipe.image}
-        ></ImageContainer>
-        <InfosContainer listFor="recipe">
-          <NameContainer>
-            <h3>{recipe.name}</h3>
-          </NameContainer>
-          <Description listFor="recipe">{recipe.description}</Description>
-          <Link to={"/perfil"}>
-            <Button buttonFor="recipe" text="Adicionar ao carrinho" />
-          </Link>
-        </InfosContainer>
-      </Container>
-    ));
+  if (listFor === "recipe") {
+    return (
+      <>
+        {recipes?.map((recipe) => (
+          <Container listFor="recipe" key={recipe.id}>
+            <ImageContainer
+              listFor="recipe"
+              backgroundImage={recipe.image}
+            ></ImageContainer>
+            <InfosContainer listFor="recipe">
+              <NameContainer>
+                <h3>{recipe.name}</h3>
+              </NameContainer>
+              <Description listFor="recipe">{recipe.description}</Description>
+              <Link to={"/perfil"}>
+                <Button buttonFor="recipe" text="Adicionar ao carrinho" />
+              </Link>
+            </InfosContainer>
+          </Container>
+        ))}
+      </>
+    );
+  }
+  return null;
 };
-
 export default Card;

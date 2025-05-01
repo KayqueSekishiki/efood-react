@@ -45,9 +45,11 @@ export const InfosContainer = styled.div<Omit<Props, "backgroundImage">>`
   display: flex;
   flex-direction: column;
   background-color: ${(props) =>
-    props.listFor === "restaurant" ? colors.pureHearted : colors.pureHearted};
+    props.listFor === "restaurant" ? colors.white : colors.pureHearted};
   padding: ${(props) => (props.listFor === "restaurant" ? "1rem" : "0.5rem")};
   gap: ${(props) => (props.listFor === "restaurant" ? "1rem" : "0.5rem")};
+  border: 0 solid #e66767;
+  border-width: 0 1px 1px 1px;
 
   ${(props) =>
     props.listFor === "recipe" &&
