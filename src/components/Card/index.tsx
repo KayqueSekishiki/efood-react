@@ -69,23 +69,23 @@ const Card = ({
   if (listFor === "recipe") {
     return (
       <>
-        {recipes?.map((recipe) => (
-          <Container listFor="recipe" key={recipe.id}>
+        {
+          <Container listFor="recipe" key={id}>
             <ImageContainer
               listFor="recipe"
-              backgroundImage={recipe.image}
+              backgroundImage={image}
             ></ImageContainer>
             <InfosContainer listFor="recipe">
               <NameContainer>
-                <h3>{recipe.name}</h3>
+                <h3>{name}</h3>
               </NameContainer>
-              <Description listFor="recipe">{recipe.description}</Description>
+              <Description listFor="recipe">{description}</Description>
               <Link to={"/perfil"}>
                 <Button buttonFor="recipe" text="Adicionar ao carrinho" />
               </Link>
             </InfosContainer>
           </Container>
-        ))}
+        }
       </>
     );
   }

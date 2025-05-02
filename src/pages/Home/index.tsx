@@ -169,11 +169,16 @@ export const restaurantList: Restaurant[] = [
   },
 ];
 
-const Home = () => (
-  <>
-    <Header headerFor="home" />
-    <List listFor="restaurant" restaurants={restaurantList} />
-  </>
-);
-
+const Home = () => {
+  return (
+    <>
+      <Header headerFor="home" />
+      <List
+        listFor="restaurant"
+        restaurants={restaurantList}
+        recipes={restaurantList[1].recipes}
+      />
+    </>
+  );
+};
 export default Home;
