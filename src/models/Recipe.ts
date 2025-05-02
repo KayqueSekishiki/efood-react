@@ -2,20 +2,23 @@ class Recipe {
   id: number;
   image: string;
   name: string;
-  description: string;
+  shortDescription: string;
+  longDescription: string;
   value: number;
 
   constructor(
     id: number,
     image: string,
     name: string,
-    description: string,
+    shortDescription: string,
+    longDescription: string,
     value: number
   ) {
     this.id = id;
     this.image = image;
     this.name = name;
-    this.description = description;
+    this.shortDescription = shortDescription;
+    this.longDescription = longDescription;
     this.value = value;
   }
 }

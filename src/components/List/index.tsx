@@ -2,6 +2,7 @@ import Restaurant from "../../models/Restaurant";
 import Recipe from "../../models/Recipe";
 import { Container } from "./styles";
 import Card from "../Card";
+import Modal from "../Modal";
 
 type Props = {
   listFor: "restaurant" | "recipe";
@@ -40,9 +41,19 @@ const List = ({
               id={recipe.id}
               image={recipe.image}
               name={recipe.name}
-              description={recipe.description}
+              shortDescription={recipe.shortDescription}
+              longDescription={recipe.longDescription}
             />
           ))}
+        {recipes && (
+          <Modal
+            id={recipes[0].id ?? 0}
+            image={recipes[0].image}
+            name={recipes[0].name}
+            longDescription={recipes[0].longDescription}
+            value={recipes[0].value}
+          />
+        )}
       </Container>
     </div>
   );

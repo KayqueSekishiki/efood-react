@@ -27,7 +27,7 @@ color: ${colors.pureHearted};
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1024px;
+  max-width: 64rem;
   width: 100%;
   margin: 0 auto;
 `;

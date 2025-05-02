@@ -7,7 +7,6 @@ const Perfil = () => (
   <>
     <Header headerFor="perfil" />
     <Hero />
-
     <List listFor="recipe" restaurants={restaurantList} />
   </>
 );

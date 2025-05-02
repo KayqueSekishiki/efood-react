@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { MyGlobalContext } from "../../context";
 import { Link } from "react-router-dom";
 
 import {
@@ -23,8 +25,10 @@ type Props = {
   tags?: string[];
   name: string;
   rate?: number;
-  description: string;
+  description?: string;
   recipes?: Recipe[];
+  shortDescription?: string;
+  longDescription?: string;
 };
 
 const Card = ({
@@ -37,7 +41,10 @@ const Card = ({
   rate,
   description,
   recipes,
+  shortDescription,
+  longDescription,
 }: Props) => {
+  const { setModalIsVisible } = useContext(MyGlobalContext);
   if (listFor === "restaurant") {
     return (
       <Container key={id} listFor={listFor}>
@@ -58,7 +65,7 @@ const Card = ({
             </RateContainer>
           </NameContainer>
           <Description listFor="restaurant">{description}</Description>
-          <Link to={"/perfil"}>
+          <Link to={`/perfil/${id}`}>
             <Button buttonFor="restaurant" text="Saiba mais" />
           </Link>
         </InfosContainer>
@@ -79,9 +86,14 @@ const Card = ({
               <NameContainer>
                 <h3>{name}</h3>
               </NameContainer>
-              <Description listFor="recipe">{description}</Description>
-              <Link to={"/perfil"}>
-                <Button buttonFor="recipe" text="Adicionar ao carrinho" />
+              <Description listFor="recipe">{shortDescription}</Description>
+              <Link
+                to={`/perfil/${id}`}
+                onClick={() => {
+                  setModalIsVisible(true);
+                }}
+              >
+                <Button buttonFor="recipe" text="Mais detalhes" />
               </Link>
             </InfosContainer>
           </Container>
