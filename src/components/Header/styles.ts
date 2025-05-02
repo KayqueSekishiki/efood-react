@@ -20,13 +20,17 @@ export const Container = styled.header`
 `;
 
 export const HeaderBar = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 
   a {
-    align-self: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 

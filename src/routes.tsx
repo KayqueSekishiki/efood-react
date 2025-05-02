@@ -6,7 +6,8 @@ import Perfil from "./pages/Perfil";
 const Router = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/perfil/:id" element={<Perfil />} />
+    <Route path="/perfil/:restaurant" element={<Perfil />} />
+    <Route path="/perfil/:restaurant/:itemNAme" element={<Perfil />} />
   </Routes>
 );
 

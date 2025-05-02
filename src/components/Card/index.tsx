@@ -45,6 +45,10 @@ const Card = ({
   longDescription,
 }: Props) => {
   const { setModalIsVisible } = useContext(MyGlobalContext);
+
+  const formatNameForUrl = (name: string) => {
+    return name.trim().replace(/\s+/g, "-").toLowerCase();
+  };
   if (listFor === "restaurant") {
     return (
       <Container key={id} listFor={listFor}>
@@ -65,7 +69,7 @@ const Card = ({
             </RateContainer>
           </NameContainer>
           <Description listFor="restaurant">{description}</Description>
-          <Link to={`/perfil/${id}`}>
+          <Link to={`/perfil/${formatNameForUrl(name)}`}>
             <Button buttonFor="restaurant" text="Saiba mais" />
           </Link>
         </InfosContainer>
