@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { colors } from "../../styles";
 
-type Props = {
-  buttonFor: "restaurant" | "recipe" | "modal" | "formFinish";
-};
+import { Props } from ".";
 
-export const Button = styled.button<Props>`
+export const Button = styled.button<Omit<Props, "text">>`
   cursor: pointer;
   padding: 0.25rem 0.375rem;
   font-size: 0.875rem;
@@ -23,7 +21,7 @@ export const Button = styled.button<Props>`
   `}
 
   ${(props) =>
-    props.buttonFor === "recipe" &&
+    props.buttonFor === "dishe" &&
     `
       width: 100%;
   `}

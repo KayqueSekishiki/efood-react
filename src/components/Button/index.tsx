@@ -1,8 +1,8 @@
 import * as B from "./styles";
 
-type Props = {
+export type Props = {
   text: string;
-  buttonFor: "restaurant" | "recipe" | "modal" | "formFinish";
+  buttonFor: "restaurant" | "dishe" | "modal" | "formFinish";
 };
 
 const Button = ({ text, buttonFor }: Props) => (

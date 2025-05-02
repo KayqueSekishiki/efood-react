@@ -4,11 +4,14 @@ import facebookIcon from "../../assets/facebook.svg";
 import xIcon from "../../assets/x.svg";
 
 import { Container, Links } from "./styles";
+import { Link } from "react-router-dom";
 
 const Footer = () => (
   <Container>
     <div className="container">
-      <img src={logo} alt="Efood" />
+      <Link to={"/"}>
+        <img src={logo} alt="Efood" />
+      </Link>
       <Links>
         <li>
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">

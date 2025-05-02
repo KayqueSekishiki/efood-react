@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MyGlobalContext } from "../../context";
+import { Menu, MyGlobalContext } from "../../context";
 import { Link } from "react-router-dom";
 
 import {
@@ -15,61 +15,102 @@ import {
 
 import star from "../../assets/star.svg";
 import Button from "../Button";
-import Recipe from "../../models/Recipe";
 
-type Props = {
-  listFor: "restaurant" | "recipe";
+type RestaurantCardProps = {
+  listFor: "restaurant";
   id: number;
-  image: string;
-  highlightDay?: boolean;
-  tags?: string[];
-  name: string;
-  rate?: number;
-  description?: string;
-  recipes?: Recipe[];
-  shortDescription?: string;
-  longDescription?: string;
+  titulo: string;
+  destacado: boolean;
+  tipo: string;
+  avaliacao: number;
+  descricao: string;
+  capa: string;
+  cardapio: Menu[];
 };
 
-const Card = ({
-  listFor,
-  id,
-  image,
-  highlightDay,
-  tags,
-  name,
-  rate,
-  description,
-  recipes,
-  shortDescription,
-  longDescription,
-}: Props) => {
-  const { setModalIsVisible } = useContext(MyGlobalContext);
+type DishesCardProps = {
+  listFor: "dishe";
+  id: number;
+  foto: string;
+  nome: string;
+  descricao: string;
+  porcao: string;
+  preco: number;
+};
+
+type Props = RestaurantCardProps | DishesCardProps;
+
+export const capitalize = (text: string) => {
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+};
+
+const Card = (props: Props) => {
+  const { listFor } = props;
+  const {
+    setModalIsVisible,
+    setSelectedRestaurant,
+    selectedRestaurant,
+    setSelectedDish,
+  } = useContext(MyGlobalContext);
 
   const formatNameForUrl = (name: string) => {
     return name.trim().replace(/\s+/g, "-").toLowerCase();
   };
+
+  const getDescription = (description: string) => {
+    if (description.length > 133) {
+      return description.slice(0, 130) + "...";
+    }
+    return description;
+  };
+
   if (listFor === "restaurant") {
+    const {
+      id,
+      titulo,
+      capa,
+      destacado,
+      tipo,
+      avaliacao,
+      descricao,
+      cardapio,
+    } = props as RestaurantCardProps;
+
     return (
-      <Container key={id} listFor={listFor}>
-        <ImageContainer listFor="restaurant" backgroundImage={image}>
+      <Container key={formatNameForUrl(titulo)} listFor={listFor}>
+        <ImageContainer
+          style={{ backgroundImage: `url(${capa})` }}
+          listFor="restaurant"
+        >
           <Tags>
-            {highlightDay && <Tag>Destaque do Dia</Tag>}
-            {tags?.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
+            {destacado && <Tag>Destaque do Dia</Tag>}
+            <Tag>{capitalize(tipo)}</Tag>
           </Tags>
         </ImageContainer>
         <InfosContainer listFor="restaurant">
           <NameContainer>
-            <h3>{name}</h3>
+            <h3>{titulo}</h3>
             <RateContainer>
-              <span>{rate}</span>
+              <span>{avaliacao}</span>
               <img src={star} alt="classificação" />
             </RateContainer>
           </NameContainer>
-          <Description listFor="restaurant">{description}</Description>
-          <Link to={`/perfil/${formatNameForUrl(name)}`}>
+          <Description listFor="restaurant">{descricao}</Description>
+          <Link
+            to={`/perfil/${formatNameForUrl(titulo)}`}
+            onClick={() => {
+              setSelectedRestaurant({
+                id,
+                titulo,
+                destacado,
+                descricao,
+                tipo,
+                avaliacao,
+                capa,
+                cardapio,
+              });
+            }}
+          >
             <Button buttonFor="restaurant" text="Saiba mais" />
           </Link>
         </InfosContainer>
@@ -77,27 +118,35 @@ const Card = ({
     );
   }
 
-  if (listFor === "recipe") {
+  if (listFor === "dishe") {
+    const { id, foto, nome, descricao, porcao, preco } =
+      props as DishesCardProps;
+
     return (
       <>
         {
-          <Container listFor="recipe" key={id}>
+          <Container listFor="dishe" key={formatNameForUrl(nome)}>
             <ImageContainer
-              listFor="recipe"
-              backgroundImage={image}
-            ></ImageContainer>
-            <InfosContainer listFor="recipe">
+              style={{ backgroundImage: `url(${foto})` }}
+              listFor="dishe"
+            />
+            <InfosContainer listFor="dishe">
               <NameContainer>
-                <h3>{name}</h3>
+                <h3>{nome}</h3>
               </NameContainer>
-              <Description listFor="recipe">{shortDescription}</Description>
+              <Description listFor="dishe">
+                {getDescription(descricao)}
+              </Description>
               <Link
-                to={`/perfil/${id}`}
+                to={`/perfil/${formatNameForUrl(
+                  selectedRestaurant?.titulo ?? ""
+                )}/${formatNameForUrl(nome)}`}
                 onClick={() => {
+                  setSelectedDish({ id, foto, nome, descricao, porcao, preco });
                   setModalIsVisible(true);
                 }}
               >
-                <Button buttonFor="recipe" text="Mais detalhes" />
+                <Button buttonFor="dishe" text="Mais detalhes" />
               </Link>
             </InfosContainer>
           </Container>

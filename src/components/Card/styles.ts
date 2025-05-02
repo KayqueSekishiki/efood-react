@@ -3,7 +3,6 @@ import { colors } from "../../styles";
 
 type Props = {
   listFor: string;
-  backgroundImage: string;
 };
 
 export const Container = styled.div<Omit<Props, "backgroundImage">>`
@@ -20,7 +19,6 @@ export const ImageContainer = styled.div<Props>`
   width: 100%;
   height: ${(props) =>
     props.listFor === "restaurant" ? "13.5rem" : "10.5rem"};
-  background-image: url(${(props) => props.backgroundImage});
   background-size: cover;
   backgroud-repeat: no-repeat;
   padding: 1rem;
@@ -52,7 +50,7 @@ export const InfosContainer = styled.div<Omit<Props, "backgroundImage">>`
   border-width: 0 1px 1px 1px;
 
   ${(props) =>
-    props.listFor === "recipe" &&
+    props.listFor === "dishe" &&
     `
     color: ${colors.flowerBed};
   `}
@@ -62,7 +60,7 @@ export const NameContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  height: 2.5rem;
   font-size: 1.125rem;
   font-weight: 700;
 `;
@@ -74,6 +72,7 @@ export const RateContainer = styled.div`
 `;
 
 export const Description = styled.p<Omit<Props, "backgroundImage">>`
+  width: ${(props) => props.listFor === "dishe" && "90%"};
   height: ${(props) => (props.listFor === "restaurant" ? "7rem" : "5.5rem")};
   font-size: 0.875rem;
   font-weight: 400;

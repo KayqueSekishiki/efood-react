@@ -6,47 +6,46 @@ import close from "../../assets/icon/close.svg";
 
 import { ModalContent, Modal as ModalStyle } from "./styles";
 
-type Props = {
-  id: number;
-  image: string;
-  name: string;
-  longDescription: string;
-  value: number;
+import { Menu as Props } from "../../context";
+
+export const formatPrices = (price = 0) => {
+  return new Intl.NumberFormat(`pt-BR`, {
+    style: "currency",
+    currency: "BRL",
+  }).format(price);
 };
 
-const Modal = ({ id, image, name, longDescription, value }: Props) => {
+const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
   const { modalIsVisible, setModalIsVisible } = useContext(MyGlobalContext);
 
   return (
-    <>
-      <ModalStyle className={modalIsVisible ? "visible" : ""}>
-        <ModalContent className=".container">
-          <img
-            src={close}
-            alt="Fechar informações Detalhadas"
-            onClick={() => {
-              setModalIsVisible(false);
-            }}
-          />
-          <img src={image} alt={`Imagem da ${name}`} />
-          <div>
-            <h3>{name}</h3>
-            <p>{longDescription}</p>
-            <p>Serve: 2 a 3 pessoas</p>
-            <Button
-              buttonFor="modal"
-              text={`Adicionar ao carrinho - R$ ${value}`}
-            />
-          </div>
-        </ModalContent>
-        <div
-          className="overlay"
+    <ModalStyle className={modalIsVisible ? "visible" : ""}>
+      <ModalContent className=".container">
+        <img
+          src={close}
+          alt="Fechar informações Detalhadas"
           onClick={() => {
             setModalIsVisible(false);
           }}
         />
-      </ModalStyle>
-    </>
+        <img src={foto} alt={`Imagem da ${nome}`} />
+        <div>
+          <h3>{nome}</h3>
+          <p>{descricao}</p>
+          <p>Serve: {porcao}</p>
+          <Button
+            buttonFor="modal"
+            text={`Adicionar ao carrinho - ${formatPrices(preco)}`}
+          />
+        </div>
+      </ModalContent>
+      <div
+        className="overlay"
+        onClick={() => {
+          setModalIsVisible(false);
+        }}
+      />
+    </ModalStyle>
   );
 };
 

@@ -1,59 +1,58 @@
-import Restaurant from "../../models/Restaurant";
-import Recipe from "../../models/Recipe";
+import { useContext } from "react";
+import { Restaurant, MyGlobalContext } from "../../context";
 import { Container } from "./styles";
 import Card from "../Card";
 import Modal from "../Modal";
 
 type Props = {
-  listFor: "restaurant" | "recipe";
-  restaurants?: Restaurant[];
-  recipes?: Recipe[];
+  listFor: "restaurant" | "dishe";
+  restaurants: Restaurant[];
 };
 
-const List = ({
-  listFor,
-  restaurants,
-  recipes = restaurants && restaurants[1].recipes,
-}: Props) => {
+const List = ({ listFor, restaurants }: Props) => {
+  const { selectedRestaurant, selectedDish } = useContext(MyGlobalContext);
+
   return (
     <div className="container">
       <Container list={listFor}>
         {listFor === "restaurant" &&
-          (restaurants ?? []).map((restaurant) => (
+          restaurants.map((restaurant) => (
             <Card
-              key={restaurant.id}
               listFor={listFor}
+              key={restaurant.id}
               id={restaurant.id}
-              image={restaurant.image}
-              highlightDay={restaurant.highlightDay}
-              tags={restaurant.tags}
-              name={restaurant.name}
-              rate={restaurant.rate}
-              description={restaurant.description}
+              titulo={restaurant.titulo}
+              destacado={restaurant.destacado}
+              tipo={restaurant.tipo}
+              avaliacao={restaurant.avaliacao}
+              descricao={restaurant.descricao}
+              capa={restaurant.capa}
+              cardapio={restaurant.cardapio}
             />
           ))}
 
-        {listFor === "recipe" &&
-          (recipes ?? []).map((recipe) => (
+        {listFor === "dishe" &&
+          selectedRestaurant?.cardapio.map((dishe) => (
             <Card
-              key={recipe.id}
               listFor={listFor}
-              id={recipe.id}
-              image={recipe.image}
-              name={recipe.name}
-              shortDescription={recipe.shortDescription}
-              longDescription={recipe.longDescription}
+              key={dishe.id}
+              id={dishe.id}
+              foto={dishe.foto}
+              nome={dishe.nome}
+              descricao={dishe.descricao}
+              porcao={dishe.porcao}
+              preco={dishe.preco}
             />
           ))}
-        {recipes && (
-          <Modal
-            id={recipes[0].id ?? 0}
-            image={recipes[0].image}
-            name={recipes[0].name}
-            longDescription={recipes[0].longDescription}
-            value={recipes[0].value}
-          />
-        )}
+
+        <Modal
+          id={selectedDish?.id ?? 0}
+          foto={selectedDish?.foto ?? ""}
+          nome={selectedDish?.nome ?? ""}
+          descricao={selectedDish?.descricao ?? ""}
+          preco={selectedDish?.preco ?? 0}
+          porcao={selectedDish?.porcao ?? ""}
+        />
       </Container>
     </div>
   );

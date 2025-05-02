@@ -7,7 +7,7 @@ const Router = () => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/perfil/:restaurant" element={<Perfil />} />
-    <Route path="/perfil/:restaurant/:itemNAme" element={<Perfil />} />
+    <Route path="/perfil/:restaurant/:dishe" element={<Perfil />} />
   </Routes>
 );
 
