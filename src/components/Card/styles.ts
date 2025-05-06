@@ -16,7 +16,7 @@ ${(props) =>
 `;
 
 export const ImageContainer = styled.div<Props>`
-  min-width: 340px;
+  min-width: 21rem;
   width: 100%;
   height: ${(props) =>
     props.listFor === "restaurant" ? "13.5rem" : "10.5rem"};
