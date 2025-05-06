@@ -58,8 +58,8 @@ const Card = (props: Props) => {
   };
 
   const getDescription = (description: string) => {
-    if (description.length > 133) {
-      return description.slice(0, 130) + "...";
+    if (description.length > 153) {
+      return description.slice(0, 150) + "...";
     }
     return description;
   };

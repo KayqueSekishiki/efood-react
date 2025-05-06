@@ -9,19 +9,28 @@ export const Container = styled.div<Omit<Props, "backgroundImage">>`
    padding? ${(props) => (props.listFor === "restaurant" ? "1rem" : "0.5rem")}
 
 ${(props) =>
-  props.listFor === "recipe" &&
+  props.listFor === "dishe" &&
   `
   background-color: ${colors.pureHearted};
 `}
 `;
 
 export const ImageContainer = styled.div<Props>`
+  min-width: 340px;
   width: 100%;
   height: ${(props) =>
     props.listFor === "restaurant" ? "13.5rem" : "10.5rem"};
   background-size: cover;
   backgroud-repeat: no-repeat;
   padding: 1rem;
+
+  ${(props) =>
+    props.listFor === "dishe" &&
+    `
+    border-width: 0.5rem 0.5rem 0 0.5rem;
+    border-style: solid;
+    border-color: ${colors.pureHearted};
+  `}
 `;
 
 export const Tags = styled.div`
