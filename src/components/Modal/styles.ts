@@ -47,6 +47,7 @@ export const ModalContent = styled.div`
     display: block;
     width: 1rem;
     height: 1rem;
+    cursor: pointer;
   }
 
   img {

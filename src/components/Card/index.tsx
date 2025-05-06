@@ -58,8 +58,8 @@ const Card = (props: Props) => {
   };
 
   const getDescription = (description: string) => {
-    if (description.length > 153) {
-      return description.slice(0, 150) + "...";
+    if (description.length > 150) {
+      return description.slice(0, 147) + "...";
     }
     return description;
   };
@@ -89,7 +89,7 @@ const Card = (props: Props) => {
         </ImageContainer>
         <InfosContainer listFor="restaurant">
           <NameContainer>
-            <h3>{titulo}</h3>
+            <span>{titulo}</span>
             <RateContainer>
               <span>{avaliacao}</span>
               <img src={star} alt="classificação" />
@@ -132,7 +132,7 @@ const Card = (props: Props) => {
             />
             <InfosContainer listFor="dishe">
               <NameContainer>
-                <h3>{nome}</h3>
+                <span>{nome}</span>
               </NameContainer>
               <Description listFor="dishe">
                 {getDescription(descricao)}

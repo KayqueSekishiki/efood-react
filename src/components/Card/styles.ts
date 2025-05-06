@@ -6,17 +6,15 @@ type Props = {
 };
 
 export const Container = styled.div<Omit<Props, "backgroundImage">>`
-   padding? ${(props) => (props.listFor === "restaurant" ? "1rem" : "0.5rem")}
-
-${(props) =>
-  props.listFor === "dishe" &&
-  `
+  ${(props) =>
+    props.listFor === "dishe" &&
+    `
   background-color: ${colors.pureHearted};
-`}
+`};
 `;
 
 export const ImageContainer = styled.div<Props>`
-  min-width: 21rem;
+  min-width: 19rem;
   width: 100%;
   height: ${(props) =>
     props.listFor === "restaurant" ? "13.5rem" : "10.5rem"};
@@ -40,6 +38,7 @@ export const Tags = styled.div`
   justify-content: flex-end;
   gap: 0.5rem;
 `;
+
 export const Tag = styled.span`
   font-size: 0.75rem;
   font-weight: 700;
@@ -53,7 +52,7 @@ export const InfosContainer = styled.div<Omit<Props, "backgroundImage">>`
   flex-direction: column;
   background-color: ${(props) =>
     props.listFor === "restaurant" ? colors.white : colors.pureHearted};
-  padding: ${(props) => (props.listFor === "restaurant" ? "1rem" : "0.5rem")};
+  padding: 0.5rem;
   gap: ${(props) => (props.listFor === "restaurant" ? "1rem" : "0.5rem")};
   border: 0 solid #e66767;
   border-width: 0 1px 1px 1px;
@@ -69,7 +68,6 @@ export const NameContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 2.5rem;
   font-size: 1.125rem;
   font-weight: 700;
 `;
@@ -81,7 +79,7 @@ export const RateContainer = styled.div`
 `;
 
 export const Description = styled.p<Omit<Props, "backgroundImage">>`
-  width: ${(props) => props.listFor === "dishe" && "90%"};
+  width: 95%;
   height: ${(props) => (props.listFor === "restaurant" ? "7rem" : "5.5rem")};
   font-size: 0.875rem;
   font-weight: 400;
