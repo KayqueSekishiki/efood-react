@@ -10,6 +10,7 @@ import {
   RateContainer,
   Description,
 } from "./styles";
+
 import star from "../../assets/star.svg";
 import Button from "../Button";
 import { Dish, Restaurant } from "../../services/api";
@@ -50,6 +51,7 @@ export const formatNameForUrl = (name: string) =>
 
 const Card = (props: Props) => {
   const { listFor } = props;
+
   const { restaurant } = useSelector(
     (state: RootReducer) => state.selectedRestaurant
   );
@@ -60,9 +62,12 @@ const Card = (props: Props) => {
   const selectDisheToDetailsModal = (dish: Dish) => dispatch(selectDish(dish));
   const openModal = () => dispatch(open());
 
-  const getDescription = (description: string) =>
-    description.length > 150 ? description.slice(0, 147) + "..." : description;
-
+  const getDescription = (description: string) => {
+    const maxLength = 150;
+    return description.length > maxLength
+      ? description.slice(0, maxLength - 3) + "..."
+      : description;
+  };
   const renderRestaurantCard = ({
     id,
     titulo,

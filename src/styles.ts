@@ -7,6 +7,13 @@ export const colors = {
   pureHearted: "#E66767",
 };
 
+export const breakpoints = {
+  desktop: "1280px",
+  laptop: "1024px",
+  tablet: "768px",
+  mobile: "425px",
+};
+
 export const GlobalStyle = createGlobalStyle`
 * {
 margin: 0;

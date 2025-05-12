@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../styles";
+import { breakpoints, colors } from "../../styles";
 
 type Props = {
   backgroundImage: string;
@@ -28,6 +28,10 @@ export const HeroContainer = styled.div<Props>`
     inset: 0;
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 0;
+  }
+
+  @media (max-width: ${breakpoints.laptop}) {
+    padding: 2rem 1rem;
   }
 `;
 

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { colors } from "../../styles";
+import { breakpoints, colors } from "../../styles";
 
 type Props = {
   listFor: string;
@@ -20,6 +20,7 @@ const dishImageStyles = css`
 `;
 
 export const Container = styled.div<Omit<Props, "backgroundImage">>`
+  max-width: 29.5rem;
   ${(props) => props.listFor === "dish" && dishStyles};
   ${(props) => props.listFor === "restaurant" && restaurantStyles};
 `;
@@ -86,8 +87,13 @@ export const RateContainer = styled.div`
 
 export const Description = styled.p<Omit<Props, "backgroundImage">>`
   width: 95%;
-  height: ${(props) => (props.listFor === "restaurant" ? "7rem" : "5.5rem")};
+
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.375rem;
+
+  @media (max-width: ${breakpoints.laptop}) {
+    min-height: ${(props) =>
+      props.listFor === "restaurant" ? "11rem" : "4.5rem"};
+  }
 `;

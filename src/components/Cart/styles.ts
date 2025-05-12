@@ -1,17 +1,7 @@
 import styled from "styled-components";
-import { colors } from "../../styles";
+import { breakpoints, colors } from "../../styles";
 import { Button } from "../Button/styles";
 import dump from "../../assets/icon/dump.svg";
-
-export const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  cursor: pointer;
-`;
 
 export const CartContainer = styled.div`
   position: fixed;
@@ -26,11 +16,30 @@ export const CartContainer = styled.div`
   &.is-open {
     display: flex;
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    flex-direction: column;
+  }
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    height: 25%;
+  }
 `;
 
 export const Sidebar = styled.aside`
   max-width: 22.5rem;
   width: 100%;
+
   background-color: ${colors.pureHearted};
   z-index: 20;
   padding: 2.5rem 1rem;
@@ -38,6 +47,11 @@ export const Sidebar = styled.aside`
   ${Button} {
     max-width: 100%;
     width: 100%;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 94%;
+    height: 75%;
   }
 `;
 

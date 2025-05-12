@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../styles";
+import { breakpoints, colors } from "../../styles";
 
 export const Modal = styled.div`
   display: none;
@@ -8,7 +8,7 @@ export const Modal = styled.div`
 
   position: fixed;
   top: 0;
-  left: 0;
+
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -29,12 +29,21 @@ export const Modal = styled.div`
     background-color: rgba(0, 0, 0, 0.75);
     cursor: pointer;
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    flex-direction: column;
+    justify-content: end;
+
+    .overlay {
+      height: 20%;
+    }
+  }
 `;
 
 export const ModalContent = styled.div`
   position: relative;
   display: flex;
-  width: 64rem;
+  max-width: 64rem;
   padding: 2rem;
   gap: 1.5rem;
   z-index: 1;
@@ -43,8 +52,8 @@ export const ModalContent = styled.div`
 
   img:first-child {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 1rem;
+    right: 1rem;
     display: block;
     width: 1rem;
     height: 1rem;
@@ -54,7 +63,6 @@ export const ModalContent = styled.div`
   img {
     width: 18rem;
     height: 18rem;
-
     object-fit: cover;
   }
 
@@ -77,6 +85,36 @@ export const ModalContent = styled.div`
 
     button {
       max-width: 40%;
+    }
+  }
+
+  @media (max-width: ${breakpoints.laptop}) {
+    width: 95%;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    flex-direction: column;
+
+    width: 100%;
+    height: 80%;
+
+    img:first-child {
+      top: -5rem;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    img {
+      width: 100%;
+      height: 15rem;
+    }
+
+    div {
+      gap: 1rem;
+    }
+
+    button {
+      align-self: center;
     }
   }
 `;

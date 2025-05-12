@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import backgroundHeader from "../../assets/backgroundHeader.svg";
+import { breakpoints } from "../../styles";
 
 export const Container = styled.header`
   display: flex;
@@ -15,6 +16,10 @@ export const Container = styled.header`
 
   .container {
     gap: 8.5rem;
+
+    @media (max-width: ${breakpoints.mobile}) {
+      gap: 4.5rem;
+    }
   }
 `;
 
@@ -31,9 +36,23 @@ export const HeaderBar = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  @media (max-width: ${breakpoints.laptop}) {
+    padding: 0 2rem;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+  }
 `;
 
 export const Title = styled.h1`
-  width: 30rem;
+  max-width: 30rem;
   text-align: center;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 1.5rem;
+  }
 `;

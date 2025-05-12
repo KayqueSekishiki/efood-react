@@ -51,6 +51,12 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
 
   return (
     <ModalStyle className={isOpen ? "visible" : ""}>
+      <div
+        className="overlay"
+        onClick={() => {
+          closeModal(restaurant.titulo);
+        }}
+      />
       <ModalContent className=".container">
         <img
           src={close}
@@ -75,12 +81,6 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
           />
         </div>
       </ModalContent>
-      <div
-        className="overlay"
-        onClick={() => {
-          closeModal(restaurant.titulo);
-        }}
-      />
     </ModalStyle>
   );
 };
