@@ -1,16 +1,27 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { colors } from "../../styles";
 
 type Props = {
   listFor: string;
 };
 
-export const Container = styled.div<Omit<Props, "backgroundImage">>`
-  ${(props) =>
-    props.listFor === "dishe" &&
-    `
+const dishStyles = css`
   background-color: ${colors.pureHearted};
-`};
+`;
+
+const restaurantStyles = css`
+  background-color: ${colors.white};
+`;
+
+const dishImageStyles = css`
+  border-width: 0.5rem 0.5rem 0 0.5rem;
+  border-style: solid;
+  border-color: ${colors.pureHearted};
+`;
+
+export const Container = styled.div<Omit<Props, "backgroundImage">>`
+  ${(props) => props.listFor === "dish" && dishStyles};
+  ${(props) => props.listFor === "restaurant" && restaurantStyles};
 `;
 
 export const ImageContainer = styled.div<Props>`
@@ -19,16 +30,10 @@ export const ImageContainer = styled.div<Props>`
   height: ${(props) =>
     props.listFor === "restaurant" ? "13.5rem" : "10.5rem"};
   background-size: cover;
-  backgroud-repeat: no-repeat;
+  background-repeat: no-repeat;
   padding: 1rem;
 
-  ${(props) =>
-    props.listFor === "dishe" &&
-    `
-    border-width: 0.5rem 0.5rem 0 0.5rem;
-    border-style: solid;
-    border-color: ${colors.pureHearted};
-  `}
+  ${(props) => props.listFor === "dish" && dishImageStyles};
 `;
 
 export const Tags = styled.div`
@@ -50,18 +55,19 @@ export const Tag = styled.span`
 export const InfosContainer = styled.div<Omit<Props, "backgroundImage">>`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) =>
-    props.listFor === "restaurant" ? colors.white : colors.pureHearted};
   padding: 0.5rem;
   gap: ${(props) => (props.listFor === "restaurant" ? "1rem" : "0.5rem")};
   border: 0 solid #e66767;
   border-width: 0 1px 1px 1px;
 
+  ${(props) => props.listFor === "restaurant" && restaurantStyles};
+  ${(props) => props.listFor === "dish" && dishStyles};
+
   ${(props) =>
-    props.listFor === "dishe" &&
-    `
-    color: ${colors.flowerBed};
-  `}
+    props.listFor === "dish" &&
+    css`
+      color: ${colors.flowerBed};
+    `}
 `;
 
 export const NameContainer = styled.div`

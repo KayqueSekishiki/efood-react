@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button";
-
 import {
   CartContainer,
   Overlay,
@@ -12,25 +11,15 @@ import {
 import { RootReducer } from "../../store";
 import { remove, close } from "../../store/reducers/cart";
 import { formatPrices } from "../Modal";
-import { Dish } from "../../services/api";
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart);
   const dispatch = useDispatch();
 
-  const closeCart = () => {
-    dispatch(close());
-  };
+  const closeCart = () => dispatch(close());
+  const removeItem = (index: number) => dispatch(remove(index));
 
-  const removeItem = (index: number) => {
-    dispatch(remove(index));
-  };
-
-  const getTotalPrices = () => {
-    return items.reduce((a, value) => {
-      return (a += value.preco!);
-    }, 0);
-  };
+  const getTotalPrices = () => items.reduce((a, value) => a + value.preco!, 0);
 
   return (
     <CartContainer className={isOpen ? "is-open" : ""}>
@@ -48,12 +37,7 @@ const Cart = () => {
                     <h3>{item.nome}</h3>
                     <span>{formatPrices(item.preco)}</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      removeItem(index);
-                    }}
-                  />
+                  <button type="button" onClick={() => removeItem(index)} />
                 </CartItem>
               ))}
             </ul>

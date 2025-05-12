@@ -13,7 +13,7 @@ import { add, open } from "../../store/reducers/cart";
 import { close as closeDetailsModal } from "../../store/reducers/detailsModal";
 import { formatNameForUrl } from "../Card";
 
-export const formatPrices = (price = 0) => {
+export const formatPrices = (price: number = 0) => {
   return new Intl.NumberFormat(`pt-BR`, {
     style: "currency",
     currency: "BRL",
@@ -38,14 +38,16 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
     dispatch(open());
   };
 
-  const addItem = (id: Dish) => {
-    dispatch(add(id));
+  const addItem = (dish: Dish) => {
+    dispatch(add(dish));
   };
 
   const closeModal = (url: string) => {
     dispatch(closeDetailsModal());
     navigateTo(`/perfil/${formatNameForUrl(url)}`);
   };
+
+  if (!restaurant) return null; // Garantir que o restaurant esteja disponível
 
   return (
     <ModalStyle className={isOpen ? "visible" : ""}>
@@ -54,7 +56,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
           src={close}
           alt="Fechar informações Detalhadas"
           onClick={() => {
-            closeModal(restaurant!.titulo);
+            closeModal(restaurant.titulo);
           }}
         />
         <img src={foto} alt={`Imagem da ${nome}`} />
@@ -67,7 +69,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
             text={`Adicionar ao carrinho - ${formatPrices(preco)}`}
             onClick={() => {
               addItem({ id, foto, preco, descricao, nome, porcao });
-              closeModal(restaurant!.titulo);
+              closeModal(restaurant.titulo);
               openCart();
             }}
           />
@@ -76,7 +78,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
       <div
         className="overlay"
         onClick={() => {
-          closeModal(restaurant!.titulo);
+          closeModal(restaurant.titulo);
         }}
       />
     </ModalStyle>

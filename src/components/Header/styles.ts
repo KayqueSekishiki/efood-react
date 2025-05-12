@@ -6,7 +6,6 @@ export const Container = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   background-image: url(${backgroundHeader});
   background-repeat: no-repeat;
   background-size: cover;

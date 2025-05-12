@@ -36,10 +36,10 @@ const List = ({ listFor, restaurants }: Props) => {
           ))}
 
         {listFor === "dish" &&
-          restaurant?.cardapio.map((dishe, index) => (
+          restaurant?.cardapio.map((dishe) => (
             <Card
               listFor={listFor}
-              key={`${dishe.id}-${index}`}
+              key={dishe.id}
               id={dishe.id}
               foto={dishe.foto}
               nome={dishe.nome}
@@ -48,16 +48,18 @@ const List = ({ listFor, restaurants }: Props) => {
               preco={dishe.preco}
             />
           ))}
-
-        <Modal
-          id={dish?.id ?? 0}
-          foto={dish?.foto ?? ""}
-          nome={dish?.nome ?? ""}
-          descricao={dish?.descricao ?? ""}
-          preco={dish?.preco ?? 0}
-          porcao={dish?.porcao ?? ""}
-        />
       </Container>
+
+      {dish && (
+        <Modal
+          id={dish.id}
+          foto={dish.foto}
+          nome={dish.nome}
+          descricao={dish.descricao}
+          preco={dish.preco}
+          porcao={dish.porcao}
+        />
+      )}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../styles";
 import { Button } from "../Button/styles";
-
 import dump from "../../assets/icon/dump.svg";
 
 export const Overlay = styled.div`
@@ -13,6 +12,7 @@ export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
 `;
+
 export const CartContainer = styled.div`
   position: fixed;
   top: 0;
@@ -21,7 +21,7 @@ export const CartContainer = styled.div`
   height: 100%;
   display: none;
   justify-content: flex-end;
-  z-index: 1;
+  z-index: 10;
 
   &.is-open {
     display: flex;
@@ -32,7 +32,7 @@ export const Sidebar = styled.aside`
   max-width: 22.5rem;
   width: 100%;
   background-color: ${colors.pureHearted};
-  z-index: 1;
+  z-index: 20;
   padding: 2.5rem 1rem;
 
   ${Button} {

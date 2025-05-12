@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
 import {
   Container,
   Tags,
@@ -11,7 +10,6 @@ import {
   RateContainer,
   Description,
 } from "./styles";
-
 import star from "../../assets/star.svg";
 import Button from "../Button";
 import { Dish, Restaurant } from "../../services/api";
@@ -44,135 +42,126 @@ type DishesCardProps = {
 
 type Props = RestaurantCardProps | DishesCardProps;
 
-export const capitalize = (text: string) => {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-};
+export const capitalize = (text: string) =>
+  text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 
-export const formatNameForUrl = (name: string) => {
-  return name.trim().replace(/\s+/g, "-").toLowerCase();
-};
+export const formatNameForUrl = (name: string) =>
+  name.trim().replace(/\s+/g, "-").toLowerCase();
 
 const Card = (props: Props) => {
   const { listFor } = props;
   const { restaurant } = useSelector(
     (state: RootReducer) => state.selectedRestaurant
   );
-
   const dispatch = useDispatch();
-  const selectRestaurantToPagePerfil = (restaurant: Restaurant) => {
-    dispatch(selectRestaurant(restaurant));
-  };
-  const selectDisheToDetailsModal = (dish: Dish) => {
-    dispatch(selectDish(dish));
-  };
-  const openModal = () => {
-    dispatch(open());
-  };
 
-  const getDescription = (description: string) => {
-    if (description.length > 150) {
-      return description.slice(0, 147) + "...";
-    }
-    return description;
-  };
+  const selectRestaurantToPagePerfil = (restaurant: Restaurant) =>
+    dispatch(selectRestaurant(restaurant));
+  const selectDisheToDetailsModal = (dish: Dish) => dispatch(selectDish(dish));
+  const openModal = () => dispatch(open());
+
+  const getDescription = (description: string) =>
+    description.length > 150 ? description.slice(0, 147) + "..." : description;
+
+  const renderRestaurantCard = ({
+    id,
+    titulo,
+    capa,
+    destacado,
+    tipo,
+    avaliacao,
+    descricao,
+    cardapio,
+  }: RestaurantCardProps) => (
+    <Container key={formatNameForUrl(titulo)} listFor={listFor}>
+      <ImageContainer
+        style={{ backgroundImage: `url(${capa})` }}
+        listFor="restaurant"
+      >
+        <Tags>
+          {destacado && <Tag>Destaque do Dia</Tag>}
+          <Tag>{capitalize(tipo)}</Tag>
+        </Tags>
+      </ImageContainer>
+      <InfosContainer listFor="restaurant">
+        <NameContainer>
+          <span>{titulo}</span>
+          <RateContainer>
+            <span>{avaliacao}</span>
+            <img src={star} alt="classificação" />
+          </RateContainer>
+        </NameContainer>
+        <Description listFor="restaurant">{descricao}</Description>
+        <Link
+          to={`/perfil/${formatNameForUrl(titulo)}`}
+          onClick={() =>
+            selectRestaurantToPagePerfil({
+              id,
+              titulo,
+              destacado,
+              descricao,
+              tipo,
+              avaliacao,
+              capa,
+              cardapio,
+            })
+          }
+        >
+          <Button buttonFor="restaurant" text="Saiba mais" />
+        </Link>
+      </InfosContainer>
+    </Container>
+  );
+
+  const renderDishCard = ({
+    id,
+    foto,
+    nome,
+    descricao,
+    porcao,
+    preco,
+  }: DishesCardProps) => (
+    <Container listFor="dish" key={formatNameForUrl(nome)}>
+      <ImageContainer
+        style={{ backgroundImage: `url(${foto})` }}
+        listFor="dish"
+      />
+      <InfosContainer listFor="dish">
+        <NameContainer>
+          <span>{nome}</span>
+        </NameContainer>
+        <Description listFor="dish">{getDescription(descricao)}</Description>
+        <Link
+          to={`/perfil/${formatNameForUrl(
+            restaurant!.titulo
+          )}/${formatNameForUrl(nome)}`}
+          onClick={() => {
+            selectDisheToDetailsModal({
+              id,
+              foto,
+              nome,
+              descricao,
+              porcao,
+              preco,
+            });
+            openModal();
+          }}
+        >
+          <Button buttonFor="dish" text="Mais detalhes" />
+        </Link>
+      </InfosContainer>
+    </Container>
+  );
 
   if (listFor === "restaurant") {
-    const {
-      id,
-      titulo,
-      capa,
-      destacado,
-      tipo,
-      avaliacao,
-      descricao,
-      cardapio,
-    } = props as RestaurantCardProps;
-
-    return (
-      <Container key={formatNameForUrl(titulo)} listFor={listFor}>
-        <ImageContainer
-          style={{ backgroundImage: `url(${capa})` }}
-          listFor="restaurant"
-        >
-          <Tags>
-            {destacado && <Tag>Destaque do Dia</Tag>}
-            <Tag>{capitalize(tipo)}</Tag>
-          </Tags>
-        </ImageContainer>
-        <InfosContainer listFor="restaurant">
-          <NameContainer>
-            <span>{titulo}</span>
-            <RateContainer>
-              <span>{avaliacao}</span>
-              <img src={star} alt="classificação" />
-            </RateContainer>
-          </NameContainer>
-          <Description listFor="restaurant">{descricao}</Description>
-          <Link
-            to={`/perfil/${formatNameForUrl(titulo)}`}
-            onClick={() => {
-              selectRestaurantToPagePerfil({
-                id,
-                titulo,
-                destacado,
-                descricao,
-                tipo,
-                avaliacao,
-                capa,
-                cardapio,
-              });
-            }}
-          >
-            <Button buttonFor="restaurant" text="Saiba mais" />
-          </Link>
-        </InfosContainer>
-      </Container>
-    );
+    return renderRestaurantCard(props as RestaurantCardProps);
   }
 
   if (listFor === "dish") {
-    const { id, foto, nome, descricao, porcao, preco } =
-      props as DishesCardProps;
-
-    return (
-      <>
-        {
-          <Container listFor="dishe" key={formatNameForUrl(nome)}>
-            <ImageContainer
-              style={{ backgroundImage: `url(${foto})` }}
-              listFor="dishe"
-            />
-            <InfosContainer listFor="dishe">
-              <NameContainer>
-                <span>{nome}</span>
-              </NameContainer>
-              <Description listFor="dishe">
-                {getDescription(descricao)}
-              </Description>
-              <Link
-                to={`/perfil/${formatNameForUrl(
-                  restaurant!.titulo
-                )}/${formatNameForUrl(nome)}`}
-                onClick={() => {
-                  selectDisheToDetailsModal({
-                    id,
-                    foto,
-                    nome,
-                    descricao,
-                    porcao,
-                    preco,
-                  });
-                  openModal();
-                }}
-              >
-                <Button buttonFor="dish" text="Mais detalhes" />
-              </Link>
-            </InfosContainer>
-          </Container>
-        }
-      </>
-    );
+    return renderDishCard(props as DishesCardProps);
   }
+
   return null;
 };
+
 export default Card;
