@@ -12,7 +12,7 @@ const Perfil = () => {
       <>
         <Header headerFor="perfil" />
         <Hero />
-        <List listFor="dishe" restaurants={restaurants} />
+        <List listFor="dish" restaurants={restaurants} />
         <Cart />
       </>
     );

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export type Dishe = {
+export type Dish = {
   id: number;
   foto: string;
   preco: number;
@@ -17,7 +17,7 @@ export type Restaurant = {
   avaliacao: number;
   descricao: string;
   capa: string;
-  cardapio: Dishe[];
+  cardapio: Dish[];
 };
 
 const api = createApi({

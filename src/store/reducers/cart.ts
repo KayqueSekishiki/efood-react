@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Dishe } from "../../services/api";
+import { Dish } from "../../services/api";
 
 type CartState = {
-  items: Dishe[];
+  items: Dish[];
   isOpen: boolean;
 };
 
@@ -15,7 +15,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<Dishe>) => {
+    add: (state, action: PayloadAction<Dish>) => {
       state.items.push(action.payload);
     },
     remove: (state, action: PayloadAction<number>) => {

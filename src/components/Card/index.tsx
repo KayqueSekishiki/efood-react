@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { MyGlobalContext } from "../../context";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
@@ -15,7 +14,11 @@ import {
 
 import star from "../../assets/star.svg";
 import Button from "../Button";
-import { Dishe } from "../../services/api";
+import { Dish, Restaurant } from "../../services/api";
+import { RootReducer } from "../../store";
+import { selectRestaurant } from "../../store/reducers/selectedRestaurant";
+import { selectDish } from "../../store/reducers/selectedDish";
+import { open } from "../../store/reducers/detailsModal";
 
 type RestaurantCardProps = {
   listFor: "restaurant";
@@ -26,11 +29,11 @@ type RestaurantCardProps = {
   avaliacao: number;
   descricao: string;
   capa: string;
-  cardapio: Dishe[];
+  cardapio: Dish[];
 };
 
 type DishesCardProps = {
-  listFor: "dishe";
+  listFor: "dish";
   id: number;
   foto: string;
   nome: string;
@@ -47,12 +50,20 @@ export const capitalize = (text: string) => {
 
 const Card = (props: Props) => {
   const { listFor } = props;
-  const {
-    setModalIsVisible,
-    setSelectedRestaurant,
-    selectedRestaurant,
-    setSelectedDish,
-  } = useContext(MyGlobalContext);
+  const { restaurant } = useSelector(
+    (state: RootReducer) => state.selectedRestaurant
+  );
+
+  const dispatch = useDispatch();
+  const selectRestaurantToPagePerfil = (restaurant: Restaurant) => {
+    dispatch(selectRestaurant(restaurant));
+  };
+  const selectDisheToDetailsModal = (dish: Dish) => {
+    dispatch(selectDish(dish));
+  };
+  const openModal = () => {
+    dispatch(open());
+  };
 
   const formatNameForUrl = (name: string) => {
     return name.trim().replace(/\s+/g, "-").toLowerCase();
@@ -100,7 +111,7 @@ const Card = (props: Props) => {
           <Link
             to={`/perfil/${formatNameForUrl(titulo)}`}
             onClick={() => {
-              setSelectedRestaurant({
+              selectRestaurantToPagePerfil({
                 id,
                 titulo,
                 destacado,
@@ -119,7 +130,7 @@ const Card = (props: Props) => {
     );
   }
 
-  if (listFor === "dishe") {
+  if (listFor === "dish") {
     const { id, foto, nome, descricao, porcao, preco } =
       props as DishesCardProps;
 
@@ -140,14 +151,21 @@ const Card = (props: Props) => {
               </Description>
               <Link
                 to={`/perfil/${formatNameForUrl(
-                  selectedRestaurant?.titulo ?? ""
+                  restaurant!.titulo
                 )}/${formatNameForUrl(nome)}`}
                 onClick={() => {
-                  setSelectedDish({ id, foto, nome, descricao, porcao, preco });
-                  setModalIsVisible(true);
+                  selectDisheToDetailsModal({
+                    id,
+                    foto,
+                    nome,
+                    descricao,
+                    porcao,
+                    preco,
+                  });
+                  openModal();
                 }}
               >
-                <Button buttonFor="dishe" text="Mais detalhes" />
+                <Button buttonFor="dish" text="Mais detalhes" />
               </Link>
             </InfosContainer>
           </Container>

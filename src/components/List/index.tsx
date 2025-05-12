@@ -1,17 +1,20 @@
-import { useContext } from "react";
-import { MyGlobalContext } from "../../context";
 import { Container } from "./styles";
 import Card from "../Card";
 import Modal from "../Modal";
 import { Restaurant } from "../../services/api";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../../store";
 
 type Props = {
-  listFor: "restaurant" | "dishe";
+  listFor: "restaurant" | "dish";
   restaurants: Restaurant[];
 };
 
 const List = ({ listFor, restaurants }: Props) => {
-  const { selectedRestaurant, selectedDish } = useContext(MyGlobalContext);
+  const { restaurant } = useSelector(
+    (state: RootReducer) => state.selectedRestaurant
+  );
+  const { dish } = useSelector((state: RootReducer) => state.selectedDish);
 
   return (
     <div className="container">
@@ -32,8 +35,8 @@ const List = ({ listFor, restaurants }: Props) => {
             />
           ))}
 
-        {listFor === "dishe" &&
-          selectedRestaurant?.cardapio.map((dishe) => (
+        {listFor === "dish" &&
+          restaurant?.cardapio.map((dishe) => (
             <Card
               listFor={listFor}
               key={dishe.id}
@@ -47,12 +50,12 @@ const List = ({ listFor, restaurants }: Props) => {
           ))}
 
         <Modal
-          id={selectedDish?.id ?? 0}
-          foto={selectedDish?.foto ?? ""}
-          nome={selectedDish?.nome ?? ""}
-          descricao={selectedDish?.descricao ?? ""}
-          preco={selectedDish?.preco ?? 0}
-          porcao={selectedDish?.porcao ?? ""}
+          id={dish?.id ?? 0}
+          foto={dish?.foto ?? ""}
+          nome={dish?.nome ?? ""}
+          descricao={dish?.descricao ?? ""}
+          preco={dish?.preco ?? 0}
+          porcao={dish?.porcao ?? ""}
         />
       </Container>
     </div>

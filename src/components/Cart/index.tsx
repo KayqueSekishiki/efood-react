@@ -6,8 +6,6 @@ import { RootReducer } from "../../store";
 import { remove, close } from "../../store/reducers/cart";
 import { formatPrices } from "../Modal";
 
-import pizza from "../../assets/recipes/pizza-marguerita.svg";
-
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart);
   const dispatch = useDispatch();
@@ -31,20 +29,6 @@ const Cart = () => {
       <Overlay onClick={closeCart} />
       <Sidebar>
         <ul>
-          <CartItem>
-            <img src={pizza} alt="Pizza Marguerita" />
-            <div>
-              <h3>Pizza Marguerita</h3>
-              <span>{formatPrices(49.9)}</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                removeItem(1);
-              }}
-            />
-          </CartItem>
-
           {items.map((item) => (
             <CartItem key={item.id}>
               <img src={item.foto} alt={item.nome} />

@@ -1,15 +1,18 @@
-import { useContext } from "react";
-import { MyGlobalContext } from "../../context";
+import { useSelector } from "react-redux";
 import { HeroContainer, Tag, Title } from "./styles";
 import { capitalize } from "../Card";
+import { RootReducer } from "../../store";
 
 const Hero = () => {
-  const { selectedRestaurant } = useContext(MyGlobalContext);
+  const { restaurant } = useSelector(
+    (state: RootReducer) => state.selectedRestaurant
+  );
+
   return (
-    <HeroContainer backgroundImage={selectedRestaurant?.capa ?? ""}>
+    <HeroContainer backgroundImage={restaurant?.capa ?? ""}>
       <div className="container">
-        <Tag>{capitalize(selectedRestaurant?.tipo ?? "")}</Tag>
-        <Title>{selectedRestaurant?.titulo}</Title>
+        <Tag>{capitalize(restaurant?.tipo ?? "")}</Tag>
+        <Title>{restaurant?.titulo}</Title>
       </div>
     </HeroContainer>
   );

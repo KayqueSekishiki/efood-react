@@ -1,12 +1,15 @@
-import { useContext } from "react";
-import { MyGlobalContext } from "../../context";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button";
 
 import close from "../../assets/icon/close.svg";
 
 import { ModalContent, Modal as ModalStyle } from "./styles";
 
-import { Dishe as Props } from "../../services/api";
+import { Dish, Dish as Props } from "../../services/api";
+import { RootReducer } from "../../store";
+import { add, open } from "../../store/reducers/cart";
+
+import { close as closeDetailsModal } from "../../store/reducers/detailsModal";
 
 export const formatPrices = (price = 0) => {
   return new Intl.NumberFormat(`pt-BR`, {
@@ -16,16 +19,29 @@ export const formatPrices = (price = 0) => {
 };
 
 const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
-  const { modalIsVisible, setModalIsVisible } = useContext(MyGlobalContext);
+  const dispatch = useDispatch();
+  const { isOpen } = useSelector((state: RootReducer) => state.detailsModal);
+
+  const openCart = () => {
+    dispatch(open());
+  };
+
+  const addItem = (id: Dish) => {
+    dispatch(add(id));
+  };
+
+  const closeModal = () => {
+    dispatch(closeDetailsModal());
+  };
 
   return (
-    <ModalStyle className={modalIsVisible ? "visible" : ""}>
+    <ModalStyle className={isOpen ? "visible" : ""}>
       <ModalContent className=".container">
         <img
           src={close}
           alt="Fechar informações Detalhadas"
           onClick={() => {
-            setModalIsVisible(false);
+            closeModal();
           }}
         />
         <img src={foto} alt={`Imagem da ${nome}`} />
@@ -36,13 +52,18 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
           <Button
             buttonFor="modal"
             text={`Adicionar ao carrinho - ${formatPrices(preco)}`}
+            onClick={() => {
+              addItem({ id, foto, preco, descricao, nome, porcao });
+              closeModal();
+              openCart();
+            }}
           />
         </div>
       </ModalContent>
       <div
         className="overlay"
         onClick={() => {
-          setModalIsVisible(false);
+          closeModal();
         }}
       />
     </ModalStyle>

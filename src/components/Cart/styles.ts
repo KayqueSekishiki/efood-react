@@ -61,6 +61,7 @@ export const CartItem = styled.li`
   padding: 0.5rem;
   background-color: ${colors.flowerBed};
   gap: 1.25rem;
+  margin-bottom: 1rem;
 
   img {
     width: 5rem;
@@ -90,6 +91,6 @@ export const CartItem = styled.li`
     position: absolute;
     bottom: 0.5rem;
     right: 0.5rem;
-    z-index: 1;
+    cursor: pointer;
   }
 `;

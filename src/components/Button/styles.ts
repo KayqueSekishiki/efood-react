@@ -21,7 +21,7 @@ export const Button = styled.button<Omit<Props, "text">>`
   `}
 
   ${(props) =>
-    props.buttonFor === "dishe" &&
+    props.buttonFor === "dish" &&
     `
       width: 100%;
   `}
