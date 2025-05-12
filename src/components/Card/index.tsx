@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Menu, MyGlobalContext } from "../../context";
+import { MyGlobalContext } from "../../context";
 import { Link } from "react-router-dom";
 
 import {
@@ -15,6 +15,7 @@ import {
 
 import star from "../../assets/star.svg";
 import Button from "../Button";
+import { Dishe } from "../../services/api";
 
 type RestaurantCardProps = {
   listFor: "restaurant";
@@ -25,7 +26,7 @@ type RestaurantCardProps = {
   avaliacao: number;
   descricao: string;
   capa: string;
-  cardapio: Menu[];
+  cardapio: Dishe[];
 };
 
 type DishesCardProps = {

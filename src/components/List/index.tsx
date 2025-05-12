@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { Restaurant, MyGlobalContext } from "../../context";
+import { MyGlobalContext } from "../../context";
 import { Container } from "./styles";
 import Card from "../Card";
 import Modal from "../Modal";
+import { Restaurant } from "../../services/api";
 
 type Props = {
   listFor: "restaurant" | "dishe";

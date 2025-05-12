@@ -1,22 +1,20 @@
-import { useContext, useEffect } from "react";
-import { MyGlobalContext } from "../../context";
 import Header from "../../components/Header";
 import List from "../../components/List";
 
+import { useGetRestaurantsQuery } from "../../services/api";
+
 const Home = () => {
-  const { restaurants, setRestaurants } = useContext(MyGlobalContext);
+  const { data: restaurants } = useGetRestaurantsQuery();
 
-  useEffect(() => {
-    fetch("https://fake-api-tau.vercel.app/api/efood/restaurantes").then(
-      (res) => res.json().then((res) => setRestaurants(res))
+  if (restaurants) {
+    return (
+      <>
+        <Header headerFor="home" />
+        <List listFor="restaurant" restaurants={restaurants} />
+      </>
     );
-  }, [setRestaurants]);
+  }
 
-  return (
-    <>
-      <Header headerFor="home" />
-      <List listFor="restaurant" restaurants={restaurants} />
-    </>
-  );
+  return <h4>Carregando...</h4>;
 };
 export default Home;

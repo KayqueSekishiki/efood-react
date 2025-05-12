@@ -1,24 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-
-export type Menu = {
-  id: number;
-  foto: string;
-  preco: number;
-  nome: string;
-  descricao: string;
-  porcao: string;
-};
-
-export type Restaurant = {
-  id: number;
-  titulo: string;
-  destacado: boolean;
-  tipo: string;
-  avaliacao: number;
-  descricao: string;
-  capa: string;
-  cardapio: Menu[];
-};
+import { Dishe, Restaurant } from "../services/api";
 
 type MyGlobalContextProps = {
   modalIsVisible: boolean;
@@ -27,8 +8,8 @@ type MyGlobalContextProps = {
   setRestaurants: (restaurants: Restaurant[]) => void;
   selectedRestaurant: Restaurant | null;
   setSelectedRestaurant: (restaurant: Restaurant) => void;
-  selectedDish: Menu | null;
-  setSelectedDish: (menu: Menu) => void;
+  selectedDish: Dishe | null;
+  setSelectedDish: (dishe: Dishe) => void;
 };
 
 type MyProviderProps = {
@@ -42,7 +23,7 @@ const MyGlobalProvider = ({ children }: MyProviderProps) => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurant, setSelectedRestaurant] =
     useState<Restaurant | null>(null);
-  const [selectedDish, setSelectedDish] = useState<Menu | null>(null);
+  const [selectedDish, setSelectedDish] = useState<Dishe | null>(null);
 
   return (
     <MyGlobalContext.Provider

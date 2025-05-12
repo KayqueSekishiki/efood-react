@@ -6,7 +6,7 @@ import close from "../../assets/icon/close.svg";
 
 import { ModalContent, Modal as ModalStyle } from "./styles";
 
-import { Menu as Props } from "../../context";
+import { Dishe as Props } from "../../services/api";
 
 export const formatPrices = (price = 0) => {
   return new Intl.NumberFormat(`pt-BR`, {
