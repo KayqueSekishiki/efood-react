@@ -1,20 +1,24 @@
-import { MyGlobalProvider } from "./context";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { MyGlobalProvider } from "./context";
 
 import { GlobalStyle } from "./styles";
 
 import Router from "./routes";
 import Footer from "./components/Footer";
+import { store } from "./store";
 
 function App() {
   return (
-    <MyGlobalProvider>
-      <BrowserRouter>
-        <GlobalStyle />
-        <Router />
-        <Footer />
-      </BrowserRouter>
-    </MyGlobalProvider>
+    <Provider store={store}>
+      <MyGlobalProvider>
+        <BrowserRouter>
+          <GlobalStyle />
+          <Router />
+          <Footer />
+        </BrowserRouter>
+      </MyGlobalProvider>
+    </Provider>
   );
 }
 
