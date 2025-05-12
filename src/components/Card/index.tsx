@@ -48,6 +48,10 @@ export const capitalize = (text: string) => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 };
 
+export const formatNameForUrl = (name: string) => {
+  return name.trim().replace(/\s+/g, "-").toLowerCase();
+};
+
 const Card = (props: Props) => {
   const { listFor } = props;
   const { restaurant } = useSelector(
@@ -63,10 +67,6 @@ const Card = (props: Props) => {
   };
   const openModal = () => {
     dispatch(open());
-  };
-
-  const formatNameForUrl = (name: string) => {
-    return name.trim().replace(/\s+/g, "-").toLowerCase();
   };
 
   const getDescription = (description: string) => {

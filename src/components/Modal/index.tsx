@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 
 import close from "../../assets/icon/close.svg";
@@ -10,6 +11,7 @@ import { RootReducer } from "../../store";
 import { add, open } from "../../store/reducers/cart";
 
 import { close as closeDetailsModal } from "../../store/reducers/detailsModal";
+import { formatNameForUrl } from "../Card";
 
 export const formatPrices = (price = 0) => {
   return new Intl.NumberFormat(`pt-BR`, {
@@ -19,7 +21,17 @@ export const formatPrices = (price = 0) => {
 };
 
 const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const navigateTo = (to: string) => {
+    navigate(to);
+  };
+
+  const { restaurant } = useSelector(
+    (state: RootReducer) => state.selectedRestaurant
+  );
+
   const { isOpen } = useSelector((state: RootReducer) => state.detailsModal);
 
   const openCart = () => {
@@ -30,8 +42,9 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
     dispatch(add(id));
   };
 
-  const closeModal = () => {
+  const closeModal = (url: string) => {
     dispatch(closeDetailsModal());
+    navigateTo(`/perfil/${formatNameForUrl(url)}`);
   };
 
   return (
@@ -41,7 +54,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
           src={close}
           alt="Fechar informações Detalhadas"
           onClick={() => {
-            closeModal();
+            closeModal(restaurant!.titulo);
           }}
         />
         <img src={foto} alt={`Imagem da ${nome}`} />
@@ -54,7 +67,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
             text={`Adicionar ao carrinho - ${formatPrices(preco)}`}
             onClick={() => {
               addItem({ id, foto, preco, descricao, nome, porcao });
-              closeModal();
+              closeModal(restaurant!.titulo);
               openCart();
             }}
           />
@@ -63,7 +76,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
       <div
         className="overlay"
         onClick={() => {
-          closeModal();
+          closeModal(restaurant!.titulo);
         }}
       />
     </ModalStyle>

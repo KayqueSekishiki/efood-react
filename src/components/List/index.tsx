@@ -36,10 +36,10 @@ const List = ({ listFor, restaurants }: Props) => {
           ))}
 
         {listFor === "dish" &&
-          restaurant?.cardapio.map((dishe) => (
+          restaurant?.cardapio.map((dishe, index) => (
             <Card
               listFor={listFor}
-              key={dishe.id}
+              key={`${dishe.id}-${index}`}
               id={dishe.id}
               foto={dishe.foto}
               nome={dishe.nome}

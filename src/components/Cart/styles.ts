@@ -11,6 +11,7 @@ export const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
 `;
 export const CartContainer = styled.div`
   position: fixed;
@@ -93,4 +94,9 @@ export const CartItem = styled.li`
     right: 0.5rem;
     cursor: pointer;
   }
+`;
+
+export const Title = styled.h3`
+  color: ${colors.flowerBed};
+  text-align: center;
 `;
