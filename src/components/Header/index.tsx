@@ -1,17 +1,34 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo.svg";
 import { Container, HeaderBar, Title } from "./styles";
 import { RootReducer } from "../../store";
 import { Dish } from "../../services/api";
+import { open } from "../../store/reducers/cart";
+import { formatNameForUrl } from "../Card";
 
 type Props = {
   headerFor: "home" | "perfil";
 };
 
 const Header = ({ headerFor }: Props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { items } = useSelector((state: RootReducer) => state.cart);
+  const { restaurant } = useSelector(
+    (state: RootReducer) => state.selectedRestaurant
+  );
+
+  const navigateTo = (to: string) => {
+    navigate(to);
+  };
+
+  const openCart = (url: string) => {
+    dispatch(open());
+    navigateTo(`/perfil/${formatNameForUrl(url)}`);
+  };
 
   const message = (array: Dish[]) => {
     let cartMessage = "";
@@ -40,11 +57,11 @@ const Header = ({ headerFor }: Props) => {
           </>
         ) : (
           <HeaderBar>
-            <p>Restaurantes</p>
+            <p onClick={() => navigate("/")}>Restaurantes</p>
             <Link to={"/"}>
               <img src={logo} alt="Efood" />
             </Link>
-            <p>
+            <p onClick={() => openCart(restaurant!.titulo)}>
               <span>{message(items)}</span>
             </p>
           </HeaderBar>

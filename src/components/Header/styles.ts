@@ -46,6 +46,10 @@ export const HeaderBar = styled.div`
     flex-direction: column;
     gap: 10rem;
   }
+
+  p {
+    cursor: pointer;
+  }
 `;
 
 export const Title = styled.h1`
