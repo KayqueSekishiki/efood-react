@@ -37,8 +37,8 @@ export const Overlay = styled.div`
 `;
 
 export const Sidebar = styled.aside`
-  max-width: 22.5rem;
   width: 100%;
+  max-width: 22.5rem;
 
   background-color: ${colors.pureHearted};
   z-index: 20;
@@ -49,9 +49,13 @@ export const Sidebar = styled.aside`
     width: 100%;
   }
 
+  @media (max-width: ${breakpoints.tablet}) {
+    max-width: 60%;
+  }
+
   @media (max-width: ${breakpoints.mobile}) {
-    width: 94%;
     height: 75%;
+    max-width: 100%;
   }
 `;
 
@@ -112,5 +116,68 @@ export const CartItem = styled.li`
 
 export const Title = styled.h3`
   color: ${colors.flowerBed};
-  text-align: center;
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+
+  gap: 0.5rem;
+  color: ${colors.flowerBed};
+  margin-top: 0.5rem;
+  label {
+    display: block;
+  }
+
+  input {
+    width: 100%;
+    height: 2rem;
+    padding: 0 0.5rem;
+
+    color: ${colors.gray};
+    background-color: ${colors.flowerBed};
+    border: none;
+  }
+
+  label,
+  input {
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+`;
+
+export const DoubleInputGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  .flex-grow--2 {
+    flex-grow: 2;
+  }
+`;
+
+export const DeliveryButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+`;
+
+export const Message = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  letter-spacing: 0%;
+  text-align: justify;
+
+  margin-top: 1rem;
+
+  color: ${colors.flowerBed};
 `;

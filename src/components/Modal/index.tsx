@@ -47,7 +47,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
     navigateTo(`/perfil/${formatNameForUrl(url)}`);
   };
 
-  if (!restaurant) return null; // Garantir que o restaurant esteja disponível
+  if (!restaurant) return null;
 
   return (
     <ModalStyle className={isOpen ? "visible" : ""}>

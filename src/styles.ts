@@ -5,6 +5,7 @@ export const colors = {
   sugarMilk: "#FFF8F2",
   flowerBed: "#FFEBD9",
   pureHearted: "#E66767",
+  gray: "#4B4B4B",
 };
 
 export const breakpoints = {
