@@ -16,8 +16,11 @@ const SelectedDishSlice = createSlice({
     selectDish: (state, action: PayloadAction<Dish>) => {
       state.dish = action.payload;
     },
+    clear: (state) => {
+      state.dish = null;
+    },
   },
 });
 
-export const { selectDish } = SelectedDishSlice.actions;
+export const { selectDish, clear } = SelectedDishSlice.actions;
 export default SelectedDishSlice.reducer;

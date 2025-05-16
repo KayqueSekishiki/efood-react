@@ -16,8 +16,11 @@ const SelectedRestaurantSlice = createSlice({
     selectRestaurant: (state, action: PayloadAction<Restaurant>) => {
       state.restaurant = action.payload;
     },
+    clear: (state) => {
+      state.restaurant = null;
+    },
   },
 });
 
-export const { selectRestaurant } = SelectedRestaurantSlice.actions;
+export const { selectRestaurant, clear } = SelectedRestaurantSlice.actions;
 export default SelectedRestaurantSlice.reducer;
