@@ -82,14 +82,12 @@ export const ModalContent = styled.div`
       font-weight: 400;
       line-height: 1.375rem;
     }
-
-    button {
-      max-width: 40%;
-    }
   }
 
-  @media (max-width: ${breakpoints.laptop}) {
-    width: 95%;
+  @media (min-width: ${breakpoints.mobile}) {
+    button {
+      max-width: 60%;
+    }
   }
 
   @media (max-width: ${breakpoints.mobile}) {
@@ -114,6 +112,8 @@ export const ModalContent = styled.div`
     }
 
     button {
+      max-width: 100%;
+      padding: 1rem 0.5rem;
       align-self: center;
     }
   }

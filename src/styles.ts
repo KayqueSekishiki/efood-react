@@ -12,7 +12,7 @@ export const breakpoints = {
   desktop: "1280px",
   laptop: "1024px",
   tablet: "768px",
-  mobile: "425px",
+  mobile: "500px",
 };
 
 export const GlobalStyle = createGlobalStyle`

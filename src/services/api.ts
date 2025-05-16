@@ -34,7 +34,7 @@ type PurchasePayload = {
       city: string;
       zipCode: string;
       number: number;
-      complement: string;
+      complement?: string;
     };
   };
   payment: {
@@ -72,5 +72,5 @@ const api = createApi({
   }),
 });
 
-export const { useGetRestaurantsQuery } = api;
+export const { useGetRestaurantsQuery, usePurchaseMutation } = api;
 export default api;

@@ -73,6 +73,7 @@ const Modal = ({ id, foto, preco, descricao, nome, porcao }: Props) => {
           <Button
             buttonFor="modal"
             text={`Adicionar ao carrinho - ${formatPrices(preco)}`}
+            type="button"
             onClick={() => {
               addItem({ id, foto, preco, descricao, nome, porcao });
               closeModal(restaurant.titulo);

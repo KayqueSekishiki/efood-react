@@ -112,7 +112,7 @@ const Card = (props: Props) => {
             })
           }
         >
-          <Button buttonFor="restaurant" text="Saiba mais" />
+          <Button buttonFor="restaurant" text="Saiba mais" type="link" />
         </Link>
       </InfosContainer>
     </Container>
@@ -152,7 +152,7 @@ const Card = (props: Props) => {
             openModal();
           }}
         >
-          <Button buttonFor="dish" text="Mais detalhes" />
+          <Button buttonFor="dish" text="Mais detalhes" type="link" />
         </Link>
       </InfosContainer>
     </Container>

@@ -17,8 +17,23 @@ export const CartContainer = styled.div`
     display: flex;
   }
 
+  form {
+    width: 100%;
+    max-width: 22.5rem;
+    height: 100%;
+
+    background-color: ${colors.pureHearted};
+    z-index: 20;
+    padding: 2.5rem 1rem;
+  }
+
   @media (max-width: ${breakpoints.mobile}) {
     flex-direction: column;
+
+    form {
+      height: 75%;
+      max-width: 100%;
+    }
   }
 `;
 
@@ -37,25 +52,16 @@ export const Overlay = styled.div`
 `;
 
 export const Sidebar = styled.aside`
-  width: 100%;
-  max-width: 22.5rem;
-
-  background-color: ${colors.pureHearted};
-  z-index: 20;
-  padding: 2.5rem 1rem;
-
   ${Button} {
     max-width: 100%;
     width: 100%;
   }
 
-  @media (max-width: ${breakpoints.tablet}) {
-    max-width: 60%;
-  }
-
   @media (max-width: ${breakpoints.mobile}) {
-    height: 75%;
-    max-width: 100%;
+    ${Button} {
+      padding: 1rem 0.5rem;
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -126,6 +132,7 @@ export const InputGroup = styled.div`
   gap: 0.5rem;
   color: ${colors.flowerBed};
   margin-top: 0.5rem;
+
   label {
     display: block;
   }
@@ -146,6 +153,10 @@ export const InputGroup = styled.div`
     font-size: 0.875rem;
     line-height: 100%;
     letter-spacing: 0%;
+
+    &.error {
+      border: 0.0625rem solid red;
+    }
   }
 `;
 
