@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import InputMask from "react-input-mask";
+import InputMask from "@kerim-keskin/react-input-mask";
 import * as Yup from "yup";
 
 import Button from "../Button";
@@ -218,6 +218,7 @@ const Cart = () => {
                 />
               </InputGroup>
             </DoubleInputGroup>
+
             <InputGroup>
               <label htmlFor="addressComplement">Complemento (opcional)</label>
               <input
