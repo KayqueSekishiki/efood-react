@@ -56,46 +56,66 @@ const Cart = () => {
       expiresYear: "",
     },
     validationSchema: Yup.object({
-      receiver: Yup.string().required("O campo é obrigatorio"),
+      receiver: Yup.string()
+        .required("O campo é obrigatorio")
+        .test("full-name", "Digite o nome completo com sobrenome", (value) => {
+          if (!value) return false;
+          return value.trim().split(" ").length >= 2;
+        }),
       addressDescription: Yup.string().required("O campo é obrigatorio"),
       addressCity: Yup.string().required("O campo é obrigatorio"),
       addressZipCode: Yup.string().required("O campo é obrigatorio"),
       addressNumber: Yup.string().required("O campo é obrigatorio"),
-      addressComplement: Yup.string().required("O campo é obrigatorio"),
+      addressComplement: Yup.string(),
       cardDisplayName: Yup.string().required("O campo é obrigatorio"),
       cardNumber: Yup.string().required("O campo é obrigatorio"),
       cardCode: Yup.string().required("O campo é obrigatorio"),
-      expiresMonth: Yup.string().required("O campo é obrigatorio"),
-      expiresYear: Yup.string().required("O campo é obrigatorio"),
+      expiresMonth: Yup.string()
+        .required("O campo é obrigatorio")
+        .matches(/^(0[1-9]|1[0-2])$/, "Mês inválido"),
+      expiresYear: Yup.string()
+        .required("O campo é obrigatorio")
+        .test("year-min", "Ano inválido", (value) => {
+          if (!value) return false;
+          const numericYear = Number(value);
+          return numericYear >= new Date().getFullYear();
+        }),
     }),
-    onSubmit: (values) => {
-      purchase({
-        products: items.map((item) => ({
-          id: item.id,
-          price: item.preco as number,
-        })),
-        delivery: {
-          receiver: values.receiver,
-          address: {
-            description: values.addressDescription,
-            city: values.addressCity,
-            zipCode: values.addressZipCode,
-            number: Number(values.addressNumber),
-            complement: values.addressComplement,
-          },
-        },
-        payment: {
-          card: {
-            name: values.cardDisplayName,
-            number: values.cardNumber,
-            code: Number(values.cardCode),
-            expires: {
-              month: Number(values.expiresMonth),
-              year: Number(values.expiresYear),
+    onSubmit: async (values) => {
+      try {
+        await purchase({
+          products: items.map((item) => ({
+            id: item.id,
+            price: item.preco as number,
+          })),
+          delivery: {
+            receiver: values.receiver,
+            address: {
+              description: values.addressDescription,
+              city: values.addressCity,
+              zipCode: values.addressZipCode,
+              number: Number(values.addressNumber),
+              complement: values.addressComplement,
             },
           },
-        },
-      });
+          payment: {
+            card: {
+              name: values.cardDisplayName,
+              number: values.cardNumber,
+              code: Number(values.cardCode),
+              expires: {
+                month: Number(values.expiresMonth),
+                year: Number(values.expiresYear),
+              },
+            },
+          },
+        }).unwrap();
+
+        setPayment(false);
+        setOrderCompleted(true);
+      } catch (error) {
+        console.error(error);
+      }
     },
   });
 
@@ -138,8 +158,10 @@ const Cart = () => {
                   text="Continuar com a entrega"
                   type="button"
                   onClick={() => {
-                    setDelivery(true);
-                    setCart(false);
+                    if (items.length > 0) {
+                      setDelivery(true);
+                      setCart(false);
+                    }
                   }}
                 />
               </>
@@ -160,6 +182,7 @@ const Cart = () => {
                 value={form.values.receiver}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
+                placeholder="Nome Sobrenome"
               />
             </InputGroup>
             <InputGroup>
@@ -174,6 +197,7 @@ const Cart = () => {
                 value={form.values.addressDescription}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
+                placeholder="Endereço de entrega"
               />
             </InputGroup>
             <InputGroup>
@@ -186,6 +210,7 @@ const Cart = () => {
                 value={form.values.addressCity}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
+                placeholder="Salvador"
               />
             </InputGroup>
             <DoubleInputGroup>
@@ -202,6 +227,7 @@ const Cart = () => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   mask="99.999-999"
+                  placeholder="00.000-000"
                 />
               </InputGroup>
               <InputGroup>
@@ -215,6 +241,7 @@ const Cart = () => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   mask="99"
+                  placeholder="00"
                 />
               </InputGroup>
             </DoubleInputGroup>
@@ -238,9 +265,27 @@ const Cart = () => {
                 buttonFor="formFinish"
                 text="Continuar com o pagamento"
                 type="button"
-                onClick={() => {
-                  setDelivery(false);
-                  setPayment(true);
+                onClick={async () => {
+                  const errors = await form.validateForm();
+                  if (
+                    !errors.receiver &&
+                    !errors.addressDescription &&
+                    !errors.addressCity &&
+                    !errors.addressZipCode &&
+                    !errors.addressNumber
+                  ) {
+                    setDelivery(false);
+                    setPayment(true);
+                  } else {
+                    form.setTouched({
+                      receiver: true,
+                      addressDescription: true,
+                      addressCity: true,
+                      addressZipCode: true,
+                      addressNumber: true,
+                      addressComplement: true,
+                    });
+                  }
                 }}
               />
               <Button
@@ -271,6 +316,7 @@ const Cart = () => {
                 value={form.values.cardDisplayName}
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
+                placeholder="Patolino da Silva"
               />
             </InputGroup>
             <DoubleInputGroup>
@@ -285,6 +331,7 @@ const Cart = () => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   mask="9999 9999 9999 9999"
+                  placeholder="0000 0000 0000 0000"
                 />
               </InputGroup>
               <InputGroup>
@@ -298,6 +345,7 @@ const Cart = () => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   mask="999"
+                  placeholder="000"
                 />
               </InputGroup>
             </DoubleInputGroup>
@@ -313,6 +361,7 @@ const Cart = () => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   mask="99"
+                  placeholder="00"
                 />
               </InputGroup>
               <InputGroup>
@@ -326,6 +375,7 @@ const Cart = () => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   mask="9999"
+                  placeholder="0000"
                 />
               </InputGroup>
             </DoubleInputGroup>
@@ -334,10 +384,6 @@ const Cart = () => {
                 buttonFor="formFinish"
                 text="Finalizar pagamento"
                 type="submit"
-                onClick={() => {
-                  setPayment(false);
-                  setOrderCompleted(true);
-                }}
               />
               <Button
                 buttonFor="formFinish"

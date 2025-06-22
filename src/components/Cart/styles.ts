@@ -158,6 +158,11 @@ export const InputGroup = styled.div`
       border: 0.0625rem solid red;
     }
   }
+
+  input::placeholder {
+    font-style: italic;
+    opacity: 0.4;
+  }
 `;
 
 export const DoubleInputGroup = styled.div`
